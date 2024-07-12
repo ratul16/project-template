@@ -71,11 +71,11 @@
 </template>
 
 <script setup>
-import Button from "primevue/button";
-import InputText from "primevue/inputtext";
-import ButtonGroup from "primevue/buttongroup";
-import TabView from "primevue/tabview";
-import TabPanel from "primevue/tabpanel";
+// import Button from "primevue/button";
+// import InputText from "primevue/inputtext";
+// import ButtonGroup from "primevue/buttongroup";
+// import TabView from "primevue/tabview";
+// import TabPanel from "primevue/tabpanel";
 </script>
 
 <style lang="scss" scoped>

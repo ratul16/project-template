@@ -1,20 +1,20 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import PrimeVue from 'primevue/config';
+import primeVueConfig from './scripts/primevue-config.js'
 
 import App from './App.vue'
 import router from './router'
 
-// Prime Vue Components
-import 'primevue/resources/themes/aura-light-green/theme.css'
+// Prime Vue & Flex
 import 'primeflex/primeflex.css'
+import 'primeicons/primeicons.css'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 
-
-app.use(PrimeVue, { ripple: true })
+// PrimeVue Configuration
+primeVueConfig(app)
 
 app.mount('#app')

@@ -21,11 +21,17 @@ const global = useGlobalStore();
   <RouterView />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style lang="scss">
+@import "@/assets/scss/main.scss";
+</style>
+
+<style lang="scss" scoped>
+h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: $orange;
 }
+
 
 .logo {
   display: block;
