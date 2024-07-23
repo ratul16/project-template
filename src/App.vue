@@ -14,6 +14,7 @@ const global = useGlobalStore();
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/design-system">Design System</RouterLink>
       </nav>
     </div>
   </header>
