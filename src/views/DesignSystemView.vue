@@ -92,7 +92,7 @@
       <div class="mb-4">
         <TabView>
           <TabPanel header="Header I">
-            <p class="m-0">
+            <p class="m-0 brand">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
@@ -146,5 +146,9 @@ const visible = ref(false);
   margin: 30px 20px;
   display: flex;
   flex-direction: column;
+}
+
+.brand {
+  color: var(--p-brand-400); /* Use brand-500 as text color */
 }
 </style>

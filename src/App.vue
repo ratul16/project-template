@@ -1,8 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import { useGlobalStore } from "@/stores/global";
+import { computed } from "vue";
+import { useGlobalStore } from "@/stores/global"; // Adjust the path as needed
 
-const global = useGlobalStore();
+const store = useGlobalStore();
+
+const appName = computed(() => store.appName);
+const authorName = computed(() => store.author.name);
+const authorRole = computed(() => store.author.role);
 </script>
 
 <template>
@@ -10,7 +15,10 @@ const global = useGlobalStore();
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <h2>{{ global.appName }}</h2>
+      <div class="flex flex-column gap-2">
+        <h2 class="my-0">{{ appName }}</h2>
+        <p class="my-0">Author: {{ authorName }} ({{ authorRole }})</p>
+      </div>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -32,7 +40,6 @@ h2 {
   margin: 0;
   color: $orange;
 }
-
 
 .logo {
   display: block;
