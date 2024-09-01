@@ -7,7 +7,7 @@
         <Button label="Secondary" severity="secondary" />
         <Button label="Success" severity="success" />
         <Button label="Info" severity="info" />
-        <Button label="Warning" severity="warning" />
+        <Button label="Warning" severity="warn" />
         <Button label="Help" severity="help" />
         <Button label="Danger" severity="danger" />
         <Button label="Contrast" severity="contrast" />
@@ -17,7 +17,7 @@
         <Button icon="pi pi-bookmark" severity="secondary" aria-label="Bookmark" />
         <Button icon="pi pi-search" severity="success" aria-label="Search" />
         <Button icon="pi pi-user" severity="info" aria-label="User" />
-        <Button icon="pi pi-bell" severity="warning" aria-label="Notification" />
+        <Button icon="pi pi-bell" severity="warn" aria-label="Notification" />
         <Button icon="pi pi-heart" severity="help" aria-label="Favorite" />
         <Button icon="pi pi-times" severity="danger" aria-label="Cancel" />
       </div>

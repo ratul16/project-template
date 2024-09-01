@@ -21,24 +21,24 @@ const CustomTheme = definePreset(Aura, {
     colorScheme: {
       light: {
         primary: {
-          color: '{blue.400}',
+          color: '{teal.400}',
           inverseColor: '#ffffff',
-          hoverColor: '{blue.600}',
-          activeColor: '{blue.800}',
+          hoverColor: '{teal.600}',
+          activeColor: '{teal.800}',
         },
         highlight: {
-          background: '{blue.950}',
-          focusBackground: '{blue.700}',
+          background: '{teal.950}',
+          focusBackground: '{teal.700}',
           color: '#ffffff',
           focusColor: '#ffffff',
         },
       },
       dark: {
         primary: {
-          color: '{blue.200}',
-          inverseColor: '{blue.950}',
-          hoverColor: '{blue.400}',
-          activeColor: '{blue.300}',
+          color: '{teal.200}',
+          inverseColor: '{teal.950}',
+          hoverColor: '{teal.400}',
+          activeColor: '{teal.300}',
         },
         highlight: {
           background: 'rgba(250, 250, 250, .16)',
