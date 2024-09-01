@@ -1,13 +1,16 @@
 <script setup>
+import { ref, computed } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-import { computed } from "vue";
 import { useGlobalStore } from "@/stores/global"; // Adjust the path as needed
 
 const store = useGlobalStore();
 
+const test = ref("");
 const appName = computed(() => store.appName);
 const authorName = computed(() => store.author.name);
 const authorRole = computed(() => store.author.role);
+
+console.log("Hello");
 </script>
 
 <template>
