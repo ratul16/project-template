@@ -2,26 +2,26 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import VueDevTools from 'vite-plugin-vue-devtools'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    VueDevTools(),
+    vueDevTools(),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+    },
   },
   css: {
     preprocessorOptions: {
       scss: {
         additionalData: `
-              @import "@/assets/scss/_variables.scss";
-              @import "@/assets/scss/_mixins.scss";
-            `
+          @use "@/assets/scss/_variables.scss" as *;
+          @use "@/assets/scss/_mixins.scss" as *;
+        `,
       }
     }
   }

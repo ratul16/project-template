@@ -1,23 +1,22 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
 import App from './App.vue';
 import router from './router';
-import primeVueConfig from './scripts/primevue-config.js';
 
+import primeVueConfig from './scripts/primevueConfig';
 
-const app = createApp(App);
-
-// Create and configure Pinia
-const pinia = createPinia();
-pinia.use(piniaPluginPersistedstate);
+const app = createApp(App)
 
 // Use Pinia before using other plugins or mounting the app
-app.use(pinia);
-app.use(router);
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
+app.use(router)
 
 // PrimeVue Configuration
-primeVueConfig(app);
+app.use(primeVueConfig)
 
 // Mount the app
-app.mount('#app');
+app.mount('#app')
