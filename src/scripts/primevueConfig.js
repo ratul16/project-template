@@ -25,7 +25,7 @@ export default function configurePrimeVue(app) {
     theme: {
       preset: CustomPreset,
       options: {
-        darkModeSelector: false || 'none', // disable dark mode
+        darkModeSelector: '.dark-mode', // disable dark mode by setting false || ''
       }
     },
     ripple: true

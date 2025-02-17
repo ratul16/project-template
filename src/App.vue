@@ -1,90 +1,46 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
-
-// import LocaleSwitcher from "@/components/LocaleSwitcher.vue";
 import AvatarDropdown from "@/components/AvatarDropdown.vue";
 
 const route = useRoute();
 const activeRoute = computed(() => route.path);
 
+// Define menu items
 const items = ref([
-  {
-    label: "Home",
-    icon: "pi pi-home",
-    to: "/",
-  },
-  // {
-  //   label: "Projects",
-  //   icon: "pi pi-search",
-  //   items: [
-  //     {
-  //       label: "Components",
-  //       icon: "pi pi-bolt",
-  //     },
-  //     {
-  //       label: "Blocks",
-  //       icon: "pi pi-server",
-  //     },
-  //     {
-  //       label: "UI Kit",
-  //       icon: "pi pi-pencil",
-  //     },
-  //     {
-  //       label: "Templates",
-  //       icon: "pi pi-palette",
-  //       items: [
-  //         {
-  //           label: "Apollo",
-  //           icon: "pi pi-palette",
-  //         },
-  //         {
-  //           label: "Ultima",
-  //           icon: "pi pi-palette",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
-  {
-    label: "Map",
-    icon: "pi pi-map",
-    to: "/map",
-  },
-  {
-    label: "Information",
-    icon: "pi pi-info-circle",
-    to: "/information",
-  },
-  {
-    label: "Design UI",
-    icon: "pi pi-palette",
-    to: "/design",
-  },
+  { label: "Home", icon: "pi pi-home", to: "/" },
+  { label: "Map", icon: "pi pi-map", to: "/map" },
+  { label: "Information", icon: "pi pi-info-circle", to: "/information" },
+  { label: "Design UI", icon: "pi pi-palette", to: "/design" },
 ]);
 
-// Add theme toggler
+// Theme toggling logic
 const isDarkTheme = ref(false);
 
-const toggleTheme = () => {
-  isDarkTheme.value = !isDarkTheme.value;
-  document.documentElement.classList.toggle("p-dark");
+const applyTheme = () => {
+  document.documentElement.classList.toggle("dark-mode", isDarkTheme.value);
+  localStorage.setItem("dark-theme", isDarkTheme.value.toString());
 };
+
+const toggleDarkMode = () => {
+  isDarkTheme.value = !isDarkTheme.value;
+  applyTheme();
+};
+
+onMounted(() => {
+  isDarkTheme.value = localStorage.getItem("dark-theme") === "true";
+  applyTheme();
+});
 </script>
 
 <template>
-  <div class="app" :class="{ 'dark-theme': isDarkTheme }">
+  <div class="app">
     <header class="layout-header">
-      <Menubar
-        :model="items"
-        :focused="false"
-        class="border-noround bg-primary"
-        :breakpoint="`768px`"
-      >
+      <Menubar :model="items" class="" :breakpoint="`768px`">
         <template #start>
           <div class="flex align-items-center">
-            <i class="icons8-weather-station-wind mr-2 brand-logo" alt="Logo" />
+            <!-- <i class="pi pi-cloud mr-2 brand-logo" alt="Logo" /> -->
+            <img src="@/assets/logo.svg" class="mr-1" width="30px" />
           </div>
         </template>
 
@@ -102,23 +58,20 @@ const toggleTheme = () => {
               <span>{{ item.label }}</span>
             </a>
           </router-link>
-          <!-- if submenu exists -->
-          <a
-            v-else
-            v-ripple
-            :href="item.to || '#'"
-            :target="item.target"
-            v-bind="props.action"
-            class="nav-link"
-          >
+          <a v-else v-ripple href="#" v-bind="props.action" class="nav-link">
             <span :class="[item.icon, 'icon']" />
             <span>{{ item.label }}</span>
             <span v-if="hasSubmenu" class="pi pi-angle-down ml-2" />
           </a>
         </template>
+
         <template #end>
           <div class="flex align-items-center gap-2">
-            <LocaleSwitcher />
+            <Button
+              rounded
+              :icon="isDarkTheme ? 'pi pi-moon' : 'pi pi-sun'"
+              @click="toggleDarkMode"
+            />
             <AvatarDropdown />
           </div>
         </template>
@@ -133,12 +86,12 @@ const toggleTheme = () => {
       </RouterView>
     </main>
 
-    <div class="mobile-navbar">
+    <nav class="mobile-navbar">
       <ul>
-        <li v-for="item in items" :key="item">
+        <li v-for="item in items" :key="item.label">
           <router-link
+            v-if="item.to"
             :to="item.to"
-            v-if="item.to && item.label !== 'Projects'"
             :class="{ 'active-link': activeRoute === item.to }"
             class="nav-link"
           >
@@ -147,7 +100,7 @@ const toggleTheme = () => {
           </router-link>
         </li>
       </ul>
-    </div>
+    </nav>
   </div>
 </template>
 
@@ -158,87 +111,71 @@ const toggleTheme = () => {
 <style lang="scss" scoped>
 :deep(.p-menubar) {
   padding: 1rem;
-  // background: var(--p-primary-color) !important;
   border: none;
 }
+
 .nav-link.active-link {
   background: rgba(255, 255, 255, 0.313) !important;
-  position: relative;
   border-radius: var(--p-menubar-item-border-radius);
 }
 
-.nav-link {
-  .icon {
-    font-size: 1.2rem;
-    line-height: 0;
-  }
+.nav-link .icon {
+  font-size: 1.2rem;
 }
 
 .app {
   position: relative;
-  .mobile-navbar {
-    display: none;
-  }
 
   .brand-logo {
     font-size: 1.8rem;
-    color: var(--p-surface-0);
+    // padding: 0.25rem;
+    color: var(--p-button-primary-background);
   }
 }
 
+.mobile-navbar {
+  display: none;
+}
+
 @include media-queries("tab-sm") {
-  :deep(.p-menubar) {
-    .p-menubar-button {
-      display: none;
-    }
-  }
-  .app {
-    position: relative;
+  // :deep(.p-menubar) {
+  //   .p-menubar-button {
+  //     display: none;
+  //   }
+  // }
+  .mobile-navbar {
+    // display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--p-button-primary-background);
+    z-index: 9999;
 
-    .mobile-navbar {
-      display: block;
-      position: fixed;
-      z-index: 9999;
-      bottom: 0;
-      width: 100%;
-      ul {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        padding: 0.5rem;
-        // gap: 0 0.5rem;
-        background: var(--p-primary-color);
-        width: 100%;
-        list-style: none;
-        margin: 0;
+    ul {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0.5rem;
+      list-style: none;
+      margin: 0;
 
-        li {
+      li {
+        text-align: center;
+
+        .nav-link {
           display: flex;
-          justify-content: center;
-          width: 100%;
-          a {
-            color: var(--p-surface-0);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center; // Center icon and text
-            width: 100%; // Make link take full width of li
-            padding: 1rem 0;
-            gap: 1rem;
-            span {
-              text-align: center; // Center the text
-              font-size: 14px;
-              line-height: 0;
-            }
-            .icon {
-              font-size: 1.4rem;
-              margin-bottom: 10px;
-            }
+          flex-direction: column;
+          align-items: center;
+          text-decoration: none;
+          padding: 0.75rem 0;
+          color: var(--p-button-primary-color);
+          .icon {
+            font-size: 1.4rem;
+          }
+
+          span {
+            font-size: 14px;
           }
         }
-      }
-
-      .nav-link {
-        // gap: 0;
       }
     }
   }
