@@ -47,7 +47,6 @@ onMounted(() => {
         <template #item="{ item, props, hasSubmenu }">
           <router-link v-if="item.to" v-slot="{ href, navigate }" :to="item.to" custom>
             <a
-              v-ripple
               :href="href"
               v-bind="props.action"
               @click="navigate"
@@ -58,7 +57,7 @@ onMounted(() => {
               <span>{{ item.label }}</span>
             </a>
           </router-link>
-          <a v-else v-ripple href="#" v-bind="props.action" class="nav-link">
+          <a v-else href="#" v-bind="props.action" class="nav-link">
             <span :class="[item.icon, 'icon']" />
             <span>{{ item.label }}</span>
             <span v-if="hasSubmenu" class="pi pi-angle-down ml-2" />
@@ -138,13 +137,13 @@ onMounted(() => {
 }
 
 @include media-queries("tab-sm") {
-  // :deep(.p-menubar) {
-  //   .p-menubar-button {
-  //     display: none;
-  //   }
-  // }
+  :deep(.p-menubar) {
+    .p-menubar-button {
+      display: none;
+    }
+  }
   .mobile-navbar {
-    // display: block;
+    display: block;
     position: fixed;
     bottom: 0;
     width: 100%;
